@@ -23,6 +23,26 @@ services:
       timeout: 5s
       retries: 3
 
+  aiassistant:
+    build:
+      context: ./aiassistant/aiassistant-backend
+      dockerfile: Dockerfile
+    image: skillnova-aiassistant:latest
+    container_name: skillnova-aiassistant
+    restart: unless-stopped
+    env_file:
+      - ./aiassistant/aiassistant-backend/.env
+    environment:
+      AIASSISTANT_HOST: 0.0.0.0
+      AIASSISTANT_PORT: "8000"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/aiassistant/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
   frontend:
     build:
       context: .
@@ -30,12 +50,14 @@ services:
       args:
         VITE_API_URL: ${APP_URL}/api/v1
         VITE_SOCKET_URL: ${APP_URL}
+        VITE_AIASSISTANT_URL: ${APP_URL}
     container_name: skillnova-frontend
     restart: unless-stopped
     ports:
       - "5173:80"
     depends_on:
       - api
+      - aiassistant
 
   # Optional nginx reverse proxy in front
   # nginx:
