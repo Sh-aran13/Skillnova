@@ -1,23 +1,23 @@
 # ════════════════════════════════════════════════════════════════════
-#  AI Chatbot — CI
+#  AIAssistant — CI
 #
-#  Lints, tests, and builds ONLY the chatbot module under
-#  `ai chatbot/`. Does not touch the existing SkillNova frontend or
+#  Lints, tests, and builds ONLY the AIAssistant module under
+#  `aiassistant/`. Does not touch the existing SkillNova frontend or
 #  server jobs in `.github/workflows/ci.yml`.
 # ════════════════════════════════════════════════════════════════════
-name: AI Chatbot CI
+name: AIAssistant CI
 
 on:
   push:
     branches: [main, feat/**, fix/**]
     paths:
-      - 'ai chatbot/**'
-      - '.github/workflows/ai-chatbot.yml'
+      - 'aiassistant/**'
+      - '.github/workflows/aiassistant.yml'
   pull_request:
     branches: [main, feat/**, fix/**]
     paths:
-      - 'ai chatbot/**'
-      - '.github/workflows/ai-chatbot.yml'
+      - 'aiassistant/**'
+      - '.github/workflows/aiassistant.yml'
   workflow_dispatch:
 
 concurrency:
@@ -25,28 +25,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ai-backend-lint:
-    name: Backend lint (ruff)
+  aiassistant-backend-lint:
+    name: AIAssistant backend lint (ruff)
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ai chatbot/ai-backend
+        working-directory: aiassistant/aiassistant-backend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: pip
-          cache-dependency-path: ai chatbot/ai-backend/requirements.txt
+          cache-dependency-path: aiassistant/aiassistant-backend/requirements.txt
       - run: pip install ruff
       - run: ruff check .
 
-  ai-backend-test:
-    name: Backend tests (pytest)
+  aiassistant-backend-test:
+    name: AIAssistant backend tests (pytest)
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ai chatbot/ai-backend
+        working-directory: aiassistant/aiassistant-backend
     env:
       # Stub out env vars so tests don't accidentally call real providers.
       GROQ_API_KEY: ''
@@ -58,18 +58,18 @@ jobs:
         with:
           python-version: '3.11'
           cache: pip
-          cache-dependency-path: ai chatbot/ai-backend/requirements.txt
+          cache-dependency-path: aiassistant/aiassistant-backend/requirements.txt
       - name: Install CPU-only torch (needed by sentence-transformers)
         run: pip install --extra-index-url https://download.pytorch.org/whl/cpu torch
       - run: pip install -r requirements.txt
       - run: pytest --maxfail=1 --tb=short
 
-  ai-backend-import-check:
-    name: Backend smoke import
+  aiassistant-backend-import-check:
+    name: AIAssistant backend smoke import
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ai chatbot/ai-backend
+        working-directory: aiassistant/aiassistant-backend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -94,76 +94,76 @@ jobs:
               print('OK', m)
           "
 
-  ai-frontend-lint:
-    name: Frontend lint (eslint)
+  aiassistant-widget-lint:
+    name: AIAssistant widget lint (eslint)
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ai chatbot/ai-frontend
+        working-directory: aiassistant/aiassistant-widget
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
-          cache-dependency-path: ai chatbot/ai-frontend/package-lock.json
+          cache-dependency-path: aiassistant/aiassistant-widget/package-lock.json
       - run: npm ci || npm install
       - run: npm run lint
 
-  ai-frontend-build:
-    name: Frontend build (vite)
+  aiassistant-widget-build:
+    name: AIAssistant widget build (vite)
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ai chatbot/ai-frontend
+        working-directory: aiassistant/aiassistant-widget
     env:
-      VITE_AI_API_URL: http://localhost:8000
-      VITE_APP_NAME: SkillNova AI
+      VITE_AIASSISTANT_URL: http://localhost:8000
+      VITE_APP_NAME: AIAssistant
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
-          cache-dependency-path: ai chatbot/ai-frontend/package-lock.json
+          cache-dependency-path: aiassistant/aiassistant-widget/package-lock.json
       - run: npm ci || npm install
       - run: npm run build
 
-  ai-backend-docker:
-    name: Backend docker build
+  aiassistant-backend-docker:
+    name: AIAssistant backend docker build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with:
-          context: ai chatbot/ai-backend
-          file: ai chatbot/ai-backend/Dockerfile
+          context: aiassistant/aiassistant-backend
+          file: aiassistant/aiassistant-backend/Dockerfile
           push: false
-          tags: skillnova-ai-chatbot:ci
+          tags: skillnova-aiassistant:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   all-checks:
-    name: All AI chatbot checks
+    name: All AIAssistant checks
     needs:
-      - ai-backend-lint
-      - ai-backend-test
-      - ai-backend-import-check
-      - ai-frontend-lint
-      - ai-frontend-build
-      - ai-backend-docker
+      - aiassistant-backend-lint
+      - aiassistant-backend-test
+      - aiassistant-backend-import-check
+      - aiassistant-widget-lint
+      - aiassistant-widget-build
+      - aiassistant-backend-docker
     runs-on: ubuntu-latest
     if: always()
     steps:
       - run: |
-          if [ "${{ needs.ai-backend-lint.result }}" != "success" ] || \
-             [ "${{ needs.ai-backend-test.result }}" != "success" ] || \
-             [ "${{ needs.ai-backend-import-check.result }}" != "success" ] || \
-             [ "${{ needs.ai-frontend-lint.result }}" != "success" ] || \
-             [ "${{ needs.ai-frontend-build.result }}" != "success" ] || \
-             [ "${{ needs.ai-backend-docker.result }}" != "success" ]; then
-            echo "One or more AI chatbot jobs failed."
+          if [ "${{ needs.aiassistant-backend-lint.result }}" != "success" ] || \
+             [ "${{ needs.aiassistant-backend-test.result }}" != "success" ] || \
+             [ "${{ needs.aiassistant-backend-import-check.result }}" != "success" ] || \
+             [ "${{ needs.aiassistant-widget-lint.result }}" != "success" ] || \
+             [ "${{ needs.aiassistant-widget-build.result }}" != "success" ] || \
+             [ "${{ needs.aiassistant-backend-docker.result }}" != "success" ]; then
+            echo "One or more AIAssistant jobs failed."
             exit 1
           fi
-          echo "All AI chatbot jobs passed."
+          echo "All AIAssistant jobs passed."
