@@ -8,7 +8,8 @@ export default defineConfig({
     strictPort: true,
     host: true,
     proxy: {
-      '/api': { target: 'http://localhost:4000', changeOrigin: true },
+      '/api/v1': { target: 'http://localhost:4000', changeOrigin: true },
+      '/api/aiassistant': { target: 'http://localhost:8000', changeOrigin: true },
       '/socket.io': { target: 'http://localhost:4000', ws: true, changeOrigin: true },
     },
   },
