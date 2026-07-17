@@ -21,11 +21,17 @@ const Calendar         = lazy(() => import('./pages/Calendar'));
 const Files            = lazy(() => import('./pages/Files'));
 const Notifications    = lazy(() => import('./pages/Notifications'));
 const Exports          = lazy(() => import('./pages/Exports'));
+<<<<<<< HEAD
 const MyBadges         = lazy(() => import('./pages/MyBadges'));
 
 const PAGES = {
   dashboard:      <Dashboard />,
   my_badges:      <Suspense fallback={<PageLoader />}><MyBadges /></Suspense>,
+=======
+
+const PAGES = {
+  dashboard:      <Dashboard />,
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   knowledge:      <Suspense fallback={<PageLoader />}><KnowledgeBase /></Suspense>,
   qa:             <Suspense fallback={<PageLoader />}><QA /></Suspense>,
   project_flow:   <Suspense fallback={<PageLoader />}><ProjectFlow /></Suspense>,

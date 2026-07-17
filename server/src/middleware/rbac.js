@@ -37,10 +37,13 @@ export const PERMISSIONS = {
   'attendance:mark':       ['SUPER_ADMIN', 'ADMIN', 'MENTOR'],
   'attendance:self':       ['INTERN', 'MENTOR', 'ADMIN', 'SUPER_ADMIN'],
 
+<<<<<<< HEAD
   // Learning Streaks
   'streaks:read':          ['SUPER_ADMIN', 'ADMIN', 'MENTOR', 'INTERN'],
   'streaks:update':        ['INTERN'],
 
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   // Projects & Tasks
   'projects:read':   ['SUPER_ADMIN', 'ADMIN', 'MENTOR', 'INTERN'],
   'projects:create': ['SUPER_ADMIN', 'ADMIN', 'MENTOR'],

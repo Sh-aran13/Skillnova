@@ -15,12 +15,16 @@ const COLORS = ['#2563EB', '#7C3AED', '#059669', '#D97706', '#DC2626'];
 const Analytics = () => {
   const [stats, setStats] = useState(null);
   const [interns, setInterns] = useState([]);
+<<<<<<< HEAD
   const [badgeAnalytics, setBadgeAnalytics] = useState(null);
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
+<<<<<<< HEAD
         const [s, i, b] = await Promise.all([
           api.get('/analytics/platform'), 
           api.get('/analytics/interns'),
@@ -29,6 +33,10 @@ const Analytics = () => {
         setStats(s.data); 
         setInterns(i.data.items);
         setBadgeAnalytics(b.data);
+=======
+        const [s, i] = await Promise.all([api.get('/analytics/platform'), api.get('/analytics/interns')]);
+        setStats(s.data); setInterns(i.data.items);
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
       } finally { setLoading(false); }
     })();
   }, []);
@@ -126,6 +134,7 @@ const Analytics = () => {
           </div>
         </Card>
       </div>
+<<<<<<< HEAD
 
       {/* Badge Achievement Analytics Section */}
       {badgeAnalytics && (
@@ -226,6 +235,8 @@ const Analytics = () => {
           </div>
         </div>
       )}
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
     </div>
   );
 };

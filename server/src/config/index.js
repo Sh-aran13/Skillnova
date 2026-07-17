@@ -41,8 +41,13 @@ export const config = {
     accessSecret: process.env.JWT_ACCESS_SECRET,
     refreshSecret: process.env.JWT_REFRESH_SECRET,
     secret: process.env.JWT_SECRET,
+<<<<<<< HEAD
     accessTtl: Number(process.env.ACCESS_TOKEN_TTL) || '15m',
     refreshTtl: Number(process.env.REFRESH_TOKEN_TTL) || '7d',
+=======
+    accessTtl: process.env.ACCESS_TOKEN_TTL || '15m',
+    refreshTtl: process.env.REFRESH_TOKEN_TTL || '7d',
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
     otpTtl: process.env.OTP_TTL || '10m',
     twoFaTtl: process.env.TWOFA_TTL || '10m',
   },

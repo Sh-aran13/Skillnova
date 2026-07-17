@@ -8,8 +8,11 @@ import { connectDB, disconnectDB } from './utils/prisma.js';
 import { connectRedis } from './utils/redis.js';
 import { createSocketServer } from './sockets/index.js';
 import { logger } from './utils/logger.js';
+<<<<<<< HEAD
 import { startStreakScheduler } from './services/streak.scheduler.js';
 
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 
 async function bootstrap() {
   await connectDB();
@@ -22,7 +25,10 @@ async function bootstrap() {
     logger.info(`🚀  SkillNova API listening on http://localhost:${config.port} (${config.env})`);
     logger.info(`📚  Health: http://localhost:${config.port}/healthz`);
     logger.info(`🔐  Auth:   http://localhost:${config.port}/api/v1/auth/login`);
+<<<<<<< HEAD
     startStreakScheduler();
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   });
 
   // Graceful shutdown

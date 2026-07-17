@@ -19,8 +19,11 @@ import userRoutes from './routes/users.routes.js';
 import apiRoutes from './routes/api.routes.js';
 import kbRoutes from './routes/kb.routes.js';
 import featuresRoutes, { publicApi as publicFeaturesRoutes } from './routes/features.routes.js';
+<<<<<<< HEAD
 import streakRoutes from './routes/streaks.routes.js';
 import badgeRoutes from './routes/badges.routes.js';
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 import { etagMiddleware } from './utils/cache.js';
 import { requestId } from './middleware/requestId.js';
 
@@ -133,8 +136,11 @@ app.use('/api/v1', publicFeaturesRoutes);
 app.use('/api/v1', featuresRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/kb', kbRoutes);
+<<<<<<< HEAD
 app.use('/api/v1', streakRoutes);
 app.use('/api/v1', badgeRoutes);
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 app.use('/api/v1', csrfProtection, apiRoutes);
 
 // ── 404 ────────────────────────────────────────────────────

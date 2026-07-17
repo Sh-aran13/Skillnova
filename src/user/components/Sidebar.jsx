@@ -1,11 +1,16 @@
 // ════════════════════════════════════════════════════════════
 //  USER — components/Sidebar.jsx
 // ════════════════════════════════════════════════════════════
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 import {
   LayoutDashboard, BookOpen, MessageSquare, FileText,
   CalendarCheck, Bot, Megaphone, BarChart2, User, Settings, Activity,
   LayoutGrid, Calendar, Folder, Bell, Download, ChevronRight, ChevronLeft, LogOut,
+<<<<<<< HEAD
   Award
 } from 'lucide-react';
 import { useAuthStore } from '../../lib/auth';
@@ -14,6 +19,13 @@ import api from '../../lib/api';
 const MENU = [
   { id: 'dashboard',      label: 'Dashboard',      icon: LayoutDashboard },
   { id: 'my_badges',      label: 'My Badges',      icon: Award           },
+=======
+} from 'lucide-react';
+import { useAuthStore } from '../../lib/auth';
+
+const MENU = [
+  { id: 'dashboard',      label: 'Dashboard',      icon: LayoutDashboard },
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   { id: 'knowledge',      label: 'Knowledge Base', icon: BookOpen        },
   { id: 'project_flow',   label: 'Project Flow',   icon: Activity        },
   { id: 'kanban',         label: 'Task Board',     icon: LayoutGrid      },
@@ -33,6 +45,7 @@ const MENU = [
 
 const Sidebar = ({ active, onNavigate, forceMobileExpanded }) => {
   const [collapsed, setCollapsed] = useState(false);
+<<<<<<< HEAD
   const [unlockedBadges, setUnlockedBadges] = useState([]);
   const isCollapsed = forceMobileExpanded ? false : collapsed;
   const logout = useAuthStore((s) => s.logout);
@@ -46,6 +59,11 @@ const Sidebar = ({ active, onNavigate, forceMobileExpanded }) => {
       .catch(() => {});
   }, [active]);
 
+=======
+  const isCollapsed = forceMobileExpanded ? false : collapsed;
+  const logout = useAuthStore((s) => s.logout);
+
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   return (
     <aside
       className={`h-screen flex flex-col flex-shrink-0 transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-60'}`}
@@ -94,6 +112,7 @@ const Sidebar = ({ active, onNavigate, forceMobileExpanded }) => {
         })}
       </nav>
 
+<<<<<<< HEAD
       {!isCollapsed && unlockedBadges.length > 0 && (
         <div className="px-3 py-2.5 mx-2 my-2 rounded-xl" style={{ background: '#1a1f20', border: '1px solid #3d4446' }}>
           <p className="text-[10px] font-black uppercase tracking-wider text-[#00bea3] mb-1.5 flex items-center gap-1">
@@ -115,6 +134,8 @@ const Sidebar = ({ active, onNavigate, forceMobileExpanded }) => {
         </div>
       )}
 
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
       <div className="p-2" style={{ borderTop: '1px solid #3d4446' }}>
         <button onClick={logout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition"
           style={{ color: '#9ca3af' }}

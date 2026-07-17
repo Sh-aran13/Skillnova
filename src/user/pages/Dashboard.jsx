@@ -1,6 +1,7 @@
 // ════════════════════════════════════════════════════════════
 //  USER — pages/Dashboard.jsx (API-driven)
 // ════════════════════════════════════════════════════════════
+<<<<<<< HEAD
 import { motion } from 'framer-motion';
 import {
   CalendarCheck,
@@ -26,6 +27,21 @@ import notify from '../../lib/toast';
 import { formatRelative } from '../../lib/utils';
 import { Badge, Card, GreenButton, Modal, SectionHeader, StatCard } from '../../shared/components/UI';
 import BadgeUnlockModal from '../components/BadgeUnlockModal';
+=======
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import {
+  AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
+  XAxis, YAxis, Tooltip, ResponsiveContainer,
+} from 'recharts';
+import {
+  CheckCircle, ClipboardList, CalendarCheck, TrendingUp, MessageSquare, Loader2,
+} from 'lucide-react';
+import { Card, StatCard, SectionHeader } from '../../shared/components/UI';
+import api from '../../lib/api';
+import { useAuthStore } from '../../lib/auth';
+import { formatRelative } from '../../lib/utils';
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 
 const MotionDiv = motion.div;
 const CHART_C = ['#ff6d34', '#00bea3', '#7C3AED', '#f59e0b', '#06b6d4'];
@@ -36,6 +52,7 @@ const Dashboard = ({ onNavigate }) => {
   const [myReports, setMyReports] = useState([]);
   const [myTasks, setMyTasks] = useState([]);
   const [attendance, setAttendance] = useState(null);
+<<<<<<< HEAD
   const [streakData, setStreakData] = useState(null);
   const [badgeData, setBadgeData] = useState(null);
   const [unlockedBadges, setUnlockedBadges] = useState([]);
@@ -111,6 +128,31 @@ const Dashboard = ({ onNavigate }) => {
     }
   };
 
+=======
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [s, r, t, a] = await Promise.all([
+          api.get('/reports/stats'),
+          api.get('/reports', { params: { limit: 5 } }),
+          api.get('/tasks', { params: { limit: 50 } }),
+          api.get('/attendance/summary'),
+        ]);
+        setStats(s.data);
+        setMyReports(r.data.items);
+        setMyTasks(t.data.items);
+        setAttendance(a.data);
+      } catch {
+        /* ignore */
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -173,8 +215,13 @@ const Dashboard = ({ onNavigate }) => {
         <StatCard title="Avg Score"       value={stats?.averageScore?.toFixed(1) ?? '—'} icon={TrendingUp} color="#00bea3" subtitle="/10" />
       </div>
 
+<<<<<<< HEAD
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <Card className="p-5 flex flex-col justify-between">
+=======
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card className="p-5">
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
           <h3 className="text-sm font-semibold mb-4" style={{ color: 'var(--text)' }}>My Tasks by Status</h3>
           {myTasksByStatus.length === 0 ? (
             <p className="text-sm text-center py-8" style={{ color: 'var(--muted)' }}>No tasks yet.</p>
@@ -201,7 +248,11 @@ const Dashboard = ({ onNavigate }) => {
           )}
         </Card>
 
+<<<<<<< HEAD
         <Card className="p-5 flex flex-col justify-between">
+=======
+        <Card className="p-5">
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
           <h3 className="text-sm font-semibold mb-4" style={{ color: 'var(--text)' }}>Recent Reports</h3>
           {myReports.length === 0 ? (
             <p className="text-sm text-center py-8" style={{ color: 'var(--muted)' }}>No reports submitted yet.</p>
@@ -227,6 +278,7 @@ const Dashboard = ({ onNavigate }) => {
             </div>
           )}
         </Card>
+<<<<<<< HEAD
 
         <Card className="p-5 flex flex-col justify-between">
           <div>
@@ -388,6 +440,10 @@ const Dashboard = ({ onNavigate }) => {
         </div>
       </Card>
 
+=======
+      </div>
+
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
       <Card className="p-5">
         <SectionHeader title="Open Tasks" subtitle="What you're working on right now" />
         {myTasks.filter((t) => t.status !== 'DONE').length === 0 ? (
@@ -419,6 +475,7 @@ const Dashboard = ({ onNavigate }) => {
           <span className="absolute right-full mr-4 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">Q&A Forum</span>
         </button>
       )}
+<<<<<<< HEAD
 
       <Modal isOpen={isTrackerOpen} onClose={() => setIsTrackerOpen(false)} title="Update Learning Tracker"
         footer={
@@ -446,6 +503,8 @@ const Dashboard = ({ onNavigate }) => {
         badges={unlockedBadges}
       />
 
+=======
+>>>>>>> a889bc0b181d7b2816aace56caa512867949f625
     </div>
   );
 };
