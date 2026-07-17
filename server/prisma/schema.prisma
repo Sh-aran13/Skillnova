@@ -72,12 +72,9 @@ model User {
   mentorOf          InternProfile[] @relation("MentorRelation")
   organizedMeetings Meeting[]      @relation("OrganizedMeetings")
   meetingAttendees  MeetingAttendee[]
-<<<<<<< HEAD
   learningTrackers  LearningTracker[]
   learningStreak    LearningStreak?
   badges            UserBadge[]
-=======
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 
   @@index([role])
   @@index([status])
@@ -625,8 +622,6 @@ model MeetingAttendee {
   @@unique([meetingId, userId])
   @@index([userId])
 }
-<<<<<<< HEAD
-
 // ── Learning Streak & Tracker ──────────────────────────────
 model LearningTracker {
   id        String   @id @default(cuid())
@@ -680,5 +675,3 @@ model UserBadge {
   @@index([internId])
   @@index([badgeId])
 }
-=======
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625

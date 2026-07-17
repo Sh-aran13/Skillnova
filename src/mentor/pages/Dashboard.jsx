@@ -2,11 +2,7 @@
 //  Mentor — pages/Dashboard.jsx
 // ════════════════════════════════════════════════════════════
 import { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import { Users, FileText, AlertTriangle, Loader2, TrendingUp, Flame, Trophy, CalendarCheck } from 'lucide-react';
-=======
-import { Users, FileText, AlertTriangle, Loader2, TrendingUp } from 'lucide-react';
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 import { Card, StatCard, SectionHeader } from '../../shared/components/UI';
 import api from '../../lib/api';
 import { useAuthStore } from '../../lib/auth';
@@ -15,18 +11,14 @@ const MentorDashboard = () => {
   const { user } = useAuthStore();
   const [interns, setInterns] = useState([]);
   const [reports, setReports] = useState([]);
-<<<<<<< HEAD
   const [streakInterns, setStreakInterns] = useState([]);
   const [badgeStats, setBadgeStats] = useState(null);
   const [activeTab, setActiveTab] = useState('performance');
-=======
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-<<<<<<< HEAD
         const [i, r, s, b] = await Promise.all([
           api.get('/analytics/interns'),
           api.get('/reports', { params: { limit: 50, status: 'PENDING' } }),
@@ -37,14 +29,6 @@ const MentorDashboard = () => {
         setReports(r.data.items);
         setStreakInterns(s.data.items);
         setBadgeStats(b.data);
-=======
-        const [i, r] = await Promise.all([
-          api.get('/analytics/interns'),
-          api.get('/reports', { params: { limit: 50, status: 'PENDING' } }),
-        ]);
-        setInterns(i.data.items);
-        setReports(r.data.items);
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
       } catch {
         /* ignore */
       } finally {
@@ -74,7 +58,6 @@ const MentorDashboard = () => {
       </div>
 
       <Card className="p-5 overflow-hidden">
-<<<<<<< HEAD
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <SectionHeader title="My Interns" subtitle="Monitor performance and learning activity of assigned interns" />
           <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
@@ -307,36 +290,6 @@ const MentorDashboard = () => {
             </div>
           </div>
         )}
-=======
-        <SectionHeader title="My Interns" subtitle="Click an intern to see their reports and tasks" />
-        <div className="sn-table-scroll -mx-1">
-          <table className="w-full text-sm min-w-[40rem]">
-            <thead>
-              <tr style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border)' }}>
-                {['Intern', 'Department', 'Avg Score', 'Tasks Done', 'Attendance'].map((h) => (
-                  <th key={h} className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-left" style={{ color: 'var(--muted)' }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {interns.map((i) => (
-                <tr key={i.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td className="px-4 py-3 font-medium" style={{ color: 'var(--text)' }}>{i.name}</td>
-                  <td className="px-4 py-3" style={{ color: 'var(--muted)' }}>{i.department}</td>
-                  <td className="px-4 py-3 font-semibold" style={{ color: i.avgScore >= 7 ? '#00bea3' : '#f59e0b' }}>{i.avgScore || '—'}/10</td>
-                  <td className="px-4 py-3" style={{ color: 'var(--text)' }}>{i.completedTasks}</td>
-                  <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full"
-                      style={{ background: i.attendanceRate >= 90 ? 'rgba(0,190,163,0.12)' : i.attendanceRate >= 75 ? 'rgba(245,158,11,0.12)' : 'rgba(220,38,38,0.12)', color: i.attendanceRate >= 90 ? '#00bea3' : i.attendanceRate >= 75 ? '#d97706' : '#dc2626' }}>
-                      {i.attendanceRate}%
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
       </Card>
     </div>
   );

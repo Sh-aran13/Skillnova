@@ -7,10 +7,7 @@ import Header from './Header';
 
 const PAGE_TITLES = {
   dashboard:      'Dashboard',
-<<<<<<< HEAD
   my_badges:      'My Badges',
-=======
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   knowledge:      'Knowledge Base',
   qa:             'Q&A Forum',
   project_flow:   'Project Flow',

@@ -5,28 +5,20 @@ import { useEffect, useState } from 'react';
 import {
   BarChart, Bar, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from 'recharts';
-<<<<<<< HEAD
 import { FileText, CalendarCheck, HelpCircle, AlertCircle, Star, Shield, Loader2, Flame, Award } from 'lucide-react';
-=======
-import { FileText, CalendarCheck, HelpCircle, AlertCircle, Star, Shield, Loader2 } from 'lucide-react';
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
 import { Card, StatCard } from '../../shared/components/UI';
 import api from '../../lib/api';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [interns, setInterns] = useState([]);
-<<<<<<< HEAD
   const [leaderboard, setLeaderboard] = useState(null);
   const [leaderboardTab, setLeaderboardTab] = useState('current');
-=======
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-<<<<<<< HEAD
         const [s, i, l] = await Promise.all([
           api.get('/analytics/platform'),
           api.get('/analytics/interns'),
@@ -35,14 +27,6 @@ const AdminDashboard = () => {
         setStats(s.data);
         setInterns(i.data.items);
         setLeaderboard(l.data);
-=======
-        const [s, i] = await Promise.all([
-          api.get('/analytics/platform'),
-          api.get('/analytics/interns'),
-        ]);
-        setStats(s.data);
-        setInterns(i.data.items);
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
       } catch {
         /* ignore */
       } finally {
@@ -51,11 +35,7 @@ const AdminDashboard = () => {
     })();
   }, []);
 
-<<<<<<< HEAD
   if (loading || !stats || !leaderboard) {
-=======
-  if (loading || !stats) {
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
     return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 className="animate-spin" size={28} style={{ color: 'var(--muted)' }} /></div>;
   }
 
@@ -140,8 +120,6 @@ const AdminDashboard = () => {
           </div>
         </Card>
       </div>
-<<<<<<< HEAD
-
       {/* Learning Streak Leaderboard Section */}
       <div className="grid lg:grid-cols-3 gap-4">
         {/* Streak Stats Card */}
@@ -176,21 +154,19 @@ const AdminDashboard = () => {
             <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
               <button
                 onClick={() => setLeaderboardTab('current')}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                  leaderboardTab === 'current'
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${leaderboardTab === 'current'
                     ? 'bg-white dark:bg-slate-700 shadow text-slate-850 dark:text-white'
                     : 'text-slate-500 hover:text-slate-700'
-                }`}
+                  }`}
               >
                 Current Streaks
               </button>
               <button
                 onClick={() => setLeaderboardTab('longest')}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                  leaderboardTab === 'longest'
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${leaderboardTab === 'longest'
                     ? 'bg-white dark:bg-slate-700 shadow text-slate-850 dark:text-white'
                     : 'text-slate-500 hover:text-slate-700'
-                }`}
+                  }`}
               >
                 Longest Streaks
               </button>
@@ -223,8 +199,6 @@ const AdminDashboard = () => {
           </div>
         </Card>
       </div>
-=======
->>>>>>> a889bc0b181d7b2816aace56caa512867949f625
     </div>
   );
 };
