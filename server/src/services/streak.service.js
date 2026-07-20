@@ -61,25 +61,16 @@ export async function checkDailyActivities(userId, date) {
   });
   const hasReport = !!report;
 
-  // 3. Tasks Check (All tasks due today must be DONE)
-  const tasksDue = await prisma.projectTask.findMany({
-    where: {
-      assigneeId: userId,
-      dueDate: {
-        gte: dayStart,
-        lt: dayEnd
-      }
-    }
-  });
-  const hasTasksCompleted = tasksDue.every(t => t.status === 'DONE');
-
-  // 4. Learning Tracker Check
+  // 3. Learning Tracker Check
   const tracker = await prisma.learningTracker.findUnique({
     where: {
       userId_date: { userId, date: dayStart }
     }
   });
   const hasTracker = !!tracker;
+
+  // 4. Completed Daily Tasks (Automatically checked when attendance, report, and tracker are completed)
+  const hasTasksCompleted = hasAttendance && hasReport && hasTracker;
 
   return {
     attendance: hasAttendance,
